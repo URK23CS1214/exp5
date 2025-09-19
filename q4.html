@@ -1,0 +1,62 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Order Bill</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f9f9f9; }
+        .container { max-width: 400px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
+        h2 { text-align: center; }
+        label { display: block; margin-top: 10px; }
+        select, input, button { width: 100%; padding: 8px; margin-top: 5px; }
+        .result { margin-top: 15px; background: #f0f0f0; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cake Order Bill</h2>
+
+    <label for="cake">Select Cake:</label>
+    <select id="cake">
+        <option value="500">Chocolate Cake - ₹500</option>
+        <option value="400">Vanilla Cake - ₹400</option>
+        <option value="600">Red Velvet - ₹600</option>
+        <option value="700">Black Forest - ₹700</option>
+    </select>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" min="1" value="1">
+
+    <label>Extra Add-ons:</label>
+    <input type="checkbox" class="addon" value="50"> Extra Cream (+₹50)<br>
+    <input type="checkbox" class="addon" value="100"> Choco Chips (+₹100)<br>
+    <input type="checkbox" class="addon" value="80"> Dry Fruits (+₹80)<br>
+
+    <button onclick="calculateBill()">Generate Bill</button>
+
+    <div class="result" id="output"></div>
+</div>
+
+<script>
+function calculateBill() {
+    let cakePrice = parseFloat(document.getElementById("cake").value);
+    let qty = parseInt(document.getElementById("quantity").value) || 1;
+
+    let addOns = document.querySelectorAll(".addon:checked");
+    let addOnTotal = 0;
+    addOns.forEach(item => addOnTotal += parseFloat(item.value));
+
+    let total = (cakePrice + addOnTotal) * qty;
+
+    document.getElementById("output").innerHTML =
+        `<b>Selected Cake Price:</b> ₹${cakePrice}<br>
+         <b>Add-ons Total:</b> ₹${addOnTotal}<br>
+         <b>Quantity:</b> ${qty}<br>
+         <b>Total Bill:</b> ₹${total}`;
+}
+</script>
+
+</body>
+</html>
